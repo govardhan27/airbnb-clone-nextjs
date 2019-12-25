@@ -9,7 +9,6 @@ const Header = props => {
 	const setShowRegistrationModal = useStoreActions(
 		actions => actions.modals.setShowRegistrationModal
 	);
-	console.log('this.props ', props);
 
 	return (
 		<div className='nav-container'>
