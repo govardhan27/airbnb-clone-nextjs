@@ -1,28 +1,39 @@
 import Link from 'next/link';
+import { useStoreActions } from 'easy-peasy';
 
-const Header = () => (
-	<div className='nav-container'>
-		<Link href='/'>
-			<a>
-				<img src='img/logo.png' alt='logo' />
-			</a>
-		</Link>
-		<nav>
-			<ul>
-				<li>
-					<Link href='/register'>
-						<a>Sign up</a>
-					</Link>
-				</li>
-				<li>
-					<Link href='/login'>
-						<a>Log in</a>
-					</Link>
-				</li>
-			</ul>
-		</nav>
-		<style jsx>
-			{`
+const Header = props => {
+	const setShowLoginModal = useStoreActions(
+		actions => actions.modals.setShowLoginModal
+	);
+
+	const setShowRegistrationModal = useStoreActions(
+		actions => actions.modals.setShowRegistrationModal
+	);
+	console.log('this.props ', props);
+
+	return (
+		<div className='nav-container'>
+			<Link href='/'>
+				<a>
+					<img src='img/logo.png' alt='logo' />
+				</a>
+			</Link>
+			<nav>
+				<ul>
+					<li>
+						<a href='#' onClick={() => setShowRegistrationModal()}>
+							Sign up
+						</a>
+					</li>
+					<li>
+						<a href='#' onClick={() => setShowLoginModal()}>
+							Log in
+						</a>
+					</li>
+				</ul>
+			</nav>
+			<style jsx>
+				{`
 				ul {
 					margin: 0;
 					padding: 0;
@@ -51,8 +62,8 @@ const Header = () => (
 					float:right;
 				}
 			`}
-		</style>
-	</div>
-);
-
+			</style>
+		</div>
+	);
+};
 export default Header;

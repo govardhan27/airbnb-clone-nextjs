@@ -20,19 +20,17 @@ const tommorrow = new Date(today);
 tommorrow.setDate(tommorrow.getDate() + 1);
 
 const numberOfNightsBetweenDates = (startDate, endDate) => {
-	const start = new Date(startDate);
-	const end = new Date(endDate);
-	console.log('start ', start);
-	console.log('end ', end);
+	const start = new Date(startDate); //clone
+	const end = new Date(endDate); //clone
 	let dayCount = 0;
 	while (end > start) {
-		end.setDate(end.getDate() + 1);
+		start.setDate(start.getDate() + 1);
 		dayCount++;
 	}
 	return dayCount;
 };
 
-export default () => {
+export default ({ datesChanged }) => {
 	const [startDate, setStartDate] = useState(today);
 	const [endDate, setEndDate] = useState(tommorrow);
 
@@ -55,11 +53,13 @@ export default () => {
 					}}
 					onDayChange={day => {
 						setStartDate(day);
-						if (numberOfNightsBetweenDates(day, endDate) < 1) {
-							const newEndDate = new Date(day);
+						const newEndDate = new Date(day);
+
+						if (numberOfNightsBetweenDates(day, endDate) <= 1) {
 							newEndDate.setDate(newEndDate.getDate() + 1);
 							setEndDate(newEndDate);
 						}
+						datesChanged(day, newEndDate);
 					}}
 				/>
 			</div>
@@ -81,7 +81,10 @@ export default () => {
 							]
 						}
 					}}
-					onDayChange={day => setEndDate(day)}
+					onDayChange={day => {
+						setEndDate(day);
+						datesChanged(startDate, day);
+					}}
 				/>
 			</div>
 			<style jsx>{`
