@@ -1,21 +1,21 @@
+/* eslint-disable react/prop-types */
+
 import { useStoreActions, useStoreState } from 'easy-peasy';
+import RegistrationModal from './RegistrationModal';
 
 import Header from './Header';
 import Modal from './Modal';
 import LoginModal from './LoginModal';
-import RegistrationModal from './RegistrationModal';
 
 const Layout = ({ content }) => {
-	//Current state
+	// Current state
 	const showModal = useStoreState(state => state.modals.showModal);
 	const showLoginModal = useStoreState(state => state.modals.showLoginModal);
 	const showRegistrationModal = useStoreState(
 		state => state.modals.showRegistrationModal
 	);
-	//Actions
-	const setHideModal = useStoreActions(
-		actions => actions.modals.setHideModal
-	);
+	// Actions
+	const setHideModal = useStoreActions(actions => actions.modals.setHideModal);
 	const setShowRegistrationModal = useStoreActions(
 		actions => actions.modals.setShowRegistrationModal
 	);
@@ -30,23 +30,19 @@ const Layout = ({ content }) => {
 			{showModal && (
 				<Modal close={() => setHideModal()}>
 					{showLoginModal && (
-						<LoginModal
-							showSignup={() => setShowRegistrationModal()}
-						/>
+						<LoginModal showSignup={() => setShowRegistrationModal()} />
 					)}
 					{showRegistrationModal && (
-						<RegistrationModal
-							showLogin={() => setShowLoginModal()}
-						/>
+						<RegistrationModal showLogin={() => setShowLoginModal()} />
 					)}
 				</Modal>
 			)}
 			<style jsx global>{`
 				body {
 					margin: 0;
-					font-family: Roboto, -apple-system, BlinkMacSystemFont,
-						Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans,
-						Droid Sans, Helvetica Neue, sans-serif;
+					font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI,
+						Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+						sans-serif;
 					font-size: 14px;
 					line-height: 1.5;
 					color: #333;

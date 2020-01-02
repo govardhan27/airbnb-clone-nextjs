@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
+/* eslint react/prop-types: 0 */
+
 import { useState } from 'react';
 import { useStoreActions } from 'easy-peasy';
 import Head from 'next/head';
@@ -7,10 +10,11 @@ import Layout from '../../components/Layout';
 import DateRangePicker from '../../components/DateRangePicker';
 
 const calcNumberOfNightsBetweenDates = (startDate, endDate) => {
-	const start = new Date(startDate); //clone
-	const end = new Date(endDate); //clone
+	const start = new Date(startDate); // clone
+	const end = new Date(endDate); // clone
 	let dayCount = 0;
 	while (end > start) {
+		// eslint-disable-next-line no-plusplus
 		dayCount++;
 		start.setDate(start.getDate() + 1);
 	}
@@ -19,10 +23,7 @@ const calcNumberOfNightsBetweenDates = (startDate, endDate) => {
 
 const House = ({ house }) => {
 	const [dateChosen, setDateChose] = useState(false);
-	const [
-		numberOfNightsBetweenDates,
-		setNumberOfNightsBetweenDates
-	] = useState(0);
+	const [numberOfNightsBetweenDates, setNumberOfNightsBetweenDates] = useState(0);
 
 	const setShowLoginModal = useStoreActions(
 		actions => actions.modals.setShowLoginModal
@@ -36,11 +37,7 @@ const House = ({ house }) => {
 						<title>{house.title}</title>
 					</Head>
 					<article>
-						<img
-							src={house.picture}
-							width='100%'
-							alt='House picture'
-						/>
+						<img src={house.picture} width='100%' alt='House picture' />
 						<p>
 							{house.type}-{house.town}
 						</p>
@@ -55,10 +52,7 @@ const House = ({ house }) => {
 							datesChanged={(startDate, endDate) => {
 								setDateChose(true);
 								setNumberOfNightsBetweenDates(
-									calcNumberOfNightsBetweenDates(
-										startDate,
-										endDate
-									)
+									calcNumberOfNightsBetweenDates(startDate, endDate)
 								);
 							}}
 						/>
@@ -69,12 +63,13 @@ const House = ({ house }) => {
 								<h2>Total price for booking</h2>
 								<p>
 									$
-									{(
-										house.price * numberOfNightsBetweenDates
-									).toFixed(2)}
+									{(house.price * numberOfNightsBetweenDates).toFixed(
+										2
+									)}
 								</p>
 								<button
 									className='reserve'
+									type='submit'
 									onClick={() => setShowLoginModal()}
 								>
 									Reserve
@@ -106,6 +101,6 @@ export default House;
 House.getInitialProps = ({ query }) => {
 	const { id } = query;
 	return {
-		house: houses.filter(house => house.id === id)[0]
+		house: houses.filter(house => house.id === id)[0],
 	};
 };

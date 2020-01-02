@@ -7,7 +7,7 @@ const database = 'airbnb';
 
 const sequelize = new Sequelize(database, user, password, {
 	host,
-	dialect: 'postgres'
+	dialect: 'postgres',
 	// logging: true
 });
 

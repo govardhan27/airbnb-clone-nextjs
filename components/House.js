@@ -1,3 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/img-redundant-alt */
+/* eslint-disable react/prop-types */
+
 import Link from 'next/link';
 
 const House = ({ id, picture, type, town, title, rating, reviewsCount }) => (

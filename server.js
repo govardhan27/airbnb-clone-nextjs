@@ -6,7 +6,6 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const bodyParser = require('body-parser');
 
 const sequelize = require('./database');
-const User = require('./models/user');
 const authRouteHandler = require('./routes/authRoutes');
 require('./services/passport');
 
@@ -15,9 +14,9 @@ const dev = process.env.NODE_ENV !== 'production';
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 
-//Storing the session in postgres
+// Storing the session in postgres
 const sessionStore = new SequelizeStore({
-	db: sequelize
+	db: sequelize,
 });
 // sessionStore.sync();  //creates a seperate table
 
@@ -25,24 +24,24 @@ nextApp.prepare().then(() => {
 	const server = express();
 
 	server.use(bodyParser.json());
-	//telling express to use express-session
+	// telling express to use express-session
 	server.use(
 		session({
-			secret: '343ji43j4n3jn4jk3n', //random string
+			secret: '343ji43j4n3jn4jk3n', // random string
 			resave: false,
 			saveUninitialized: true,
 			name: 'airbnb',
 			cookie: {
-				secure: false, //CRITICAL on localhost
-				maxAge: 30 * 24 * 60 * 60 * 1000 //30 days
+				secure: false, // CRITICAL on localhost
+				maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
 			},
-			store: sessionStore
+			store: sessionStore,
 		}),
 		passport.initialize(),
 		passport.session()
 	);
 
-	//Routes or Request handlers
+	// Routes or Request handlers
 	authRouteHandler(server);
 
 	server.all('*', (req, res) => {
@@ -51,6 +50,7 @@ nextApp.prepare().then(() => {
 
 	server.listen(port, err => {
 		if (err) throw err;
+		// eslint-disable-next-line no-console
 		console.log(`> Ready on http://localhost:${port}`);
 	});
 });

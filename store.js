@@ -1,3 +1,7 @@
+/* eslint-disable no-sequences */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
+
 import { createStore, action } from 'easy-peasy';
 
 export default createStore({
@@ -20,10 +24,10 @@ export default createStore({
 				(state.showLoginModal = false),
 				(state.showRegistrationModal = true)
 			)
-		)
+		),
 	},
 	user: {
 		user: null,
-		setUser: action((state, payload) => (state.user = payload))
-	}
+		setUser: action((state, payload) => (state.user = payload)),
+	},
 });

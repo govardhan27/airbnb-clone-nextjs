@@ -1,8 +1,12 @@
+/* eslint-disable no-sequences */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react/prop-types */
+
 import Link from 'next/link';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 import axios from 'axios';
 
-const Header = props => {
+const Header = () => {
 	const user = useStoreState(state => state.user.user);
 	const setShowLoginModal = useStoreActions(
 		actions => actions.modals.setShowLoginModal
@@ -30,8 +34,7 @@ const Header = props => {
 								<a
 									href='#'
 									onClick={async () => (
-										await axios.post('api/auth/logout'),
-										setUser(null)
+										await axios.post('api/auth/logout'), setUser(null)
 									)}
 								>
 									Sign out
@@ -41,10 +44,7 @@ const Header = props => {
 					) : (
 						<>
 							<li>
-								<a
-									href='#'
-									onClick={() => setShowRegistrationModal()}
-								>
+								<a href='#' onClick={() => setShowRegistrationModal()}>
 									Sign up
 								</a>
 							</li>

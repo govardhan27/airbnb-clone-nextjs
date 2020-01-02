@@ -1,3 +1,6 @@
+/* eslint-disable no-return-await */
+/* eslint-disable func-names */
+
 const Sequelize = require('sequelize');
 const bcrypt = require('bcrypt');
 
@@ -9,12 +12,12 @@ User.init(
 	{
 		email: {
 			type: Sequelize.DataTypes.STRING,
-			allowNull: false
+			allowNull: false,
 		},
 		password: {
 			type: Sequelize.DataTypes.STRING,
-			allowNull: false
-		}
+			allowNull: false,
+		},
 	},
 	{
 		sequelize,
@@ -24,9 +27,10 @@ User.init(
 			beforeCreate: async user => {
 				const saltRounds = 10;
 				const salt = await bcrypt.genSalt(saltRounds);
+				// eslint-disable-next-line no-param-reassign
 				user.password = await bcrypt.hash(user.password, salt);
-			}
-		}
+			},
+		},
 	}
 );
 

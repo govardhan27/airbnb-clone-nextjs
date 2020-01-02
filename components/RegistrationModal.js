@@ -1,3 +1,7 @@
+/* eslint-disable no-alert */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react/prop-types */
+
 import { useState } from 'react';
 import axios from 'axios';
 import { useStoreActions } from 'easy-peasy';
@@ -6,18 +10,16 @@ export default ({ showLogin }) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [passwordconfirmation, setPasswordconfirmation] = useState('');
-	//Store Actions
+	// Store Actions
 	const setUser = useStoreActions(actions => actions.user.setUser);
-	const setHideModal = useStoreActions(
-		actions => actions.modals.setHideModal
-	);
+	const setHideModal = useStoreActions(actions => actions.modals.setHideModal);
 
 	const submit = async () => {
 		try {
 			const response = await axios.post('/api/auth/register', {
 				email,
 				password,
-				passwordconfirmation
+				passwordconfirmation,
 			});
 			if (response.data.status === 'error') {
 				return;
@@ -26,7 +28,6 @@ export default ({ showLogin }) => {
 			setHideModal();
 		} catch (error) {
 			alert(error.response.data.message);
-			return;
 		}
 	};
 
@@ -58,7 +59,7 @@ export default ({ showLogin }) => {
 						placeholder='Enter password again'
 						onChange={e => setPasswordconfirmation(e.target.value)}
 					/>
-					<button>Sign up</button>
+					<button type='button'>Sign up</button>
 					<p>
 						Already have an account?{' '}
 						<a href='#' onClick={() => showLogin()}>

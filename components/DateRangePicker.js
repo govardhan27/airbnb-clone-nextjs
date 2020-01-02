@@ -1,3 +1,7 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-plusplus */
+
 import { useState } from 'react';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
@@ -10,8 +14,7 @@ const parseDate = (str, format, locale) => {
 	return DateUtils.isDate(parsed) ? parsed : null;
 };
 
-const formatDate = (date, format, locale) =>
-	dateFnsFormat(date, format, { locale });
+const formatDate = (date, format, locale) => dateFnsFormat(date, format, { locale });
 
 const format = 'dd MMM yyyy';
 
@@ -20,8 +23,8 @@ const tommorrow = new Date(today);
 tommorrow.setDate(tommorrow.getDate() + 1);
 
 const numberOfNightsBetweenDates = (startDate, endDate) => {
-	const start = new Date(startDate); //clone
-	const end = new Date(endDate); //clone
+	const start = new Date(startDate); // clone
+	const end = new Date(endDate); // clone
 	let dayCount = 0;
 	while (end > start) {
 		start.setDate(start.getDate() + 1);
@@ -47,9 +50,9 @@ export default ({ datesChanged }) => {
 					dayPickerProps={{
 						modifiers: {
 							disabled: {
-								before: new Date()
-							}
-						}
+								before: new Date(),
+							},
+						},
 					}}
 					onDayChange={day => {
 						setStartDate(day);
@@ -76,10 +79,10 @@ export default ({ datesChanged }) => {
 							disabled: [
 								startDate,
 								{
-									before: new Date()
-								}
-							]
-						}
+									before: new Date(),
+								},
+							],
+						},
 					}}
 					onDayChange={day => {
 						setEndDate(day);

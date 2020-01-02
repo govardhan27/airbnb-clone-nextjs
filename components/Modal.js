@@ -1,6 +1,10 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint react/prop-types: 0 */
+
 export default ({ close, children }) => (
 	<div className='nav-container'>
-		<div className='modal-background' onClick={() => close()}></div>
+		<div className='modal-background' onClick={() => close()} />
 		<div className='modal'>{children}</div>
 		<style jsx global>{`
 			.modal-background {

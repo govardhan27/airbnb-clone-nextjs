@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint react/prop-types: 0 */
+
 import App from 'next/app';
 import { StoreProvider } from 'easy-peasy';
 
@@ -5,8 +8,7 @@ import store from '../store';
 
 function MyApp({ Component, pageProps, user }) {
 	if (user) {
-		console.log('user ', user);
-		//store user value i.e 'email' in the store by calling an action
+		// store user value i.e 'email' in the store by calling an action
 		store.getActions().user.setUser(user);
 	}
 	return (
@@ -21,7 +23,7 @@ export default MyApp;
 MyApp.getInitialProps = async appContext => {
 	const appProps = await App.getInitialProps(appContext);
 	let user = null;
-	//retreive the user value from the server
+	// retreive the user value from the server
 	if (
 		appContext.ctx.req &&
 		appContext.ctx.req.session &&
@@ -30,5 +32,5 @@ MyApp.getInitialProps = async appContext => {
 	) {
 		user = appContext.ctx.req.session.passport.user;
 	}
-	return { ...appProps, user: user };
+	return { ...appProps, user };
 };
