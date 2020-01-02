@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
 const user = 'nextbnb';
-const password = 'klopp27!';
+const password = '!';
 const host = 'localhost';
 const database = 'airbnb';
 
